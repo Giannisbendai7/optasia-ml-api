@@ -1,27 +1,89 @@
-# MLOps Assignment - Feature Engineering API
+# Optasia ML Feature Engineering API
 
-#  Project Overview
+## Overview
+This project implements a FastAPI-based service for feature engineering on loan data.
 
-This project is a FastAPI-based service that processes loan data, performs feature engineering, and stores both raw transactions and derived features into a SQLite database.
-
-The goal is to transform raw financial loan data into meaningful customer-level features for credit risk analysis.
+It processes customer loan records, validates input data, stores transactions in SQLite, and generates aggregated customer features.
 
 ---
 
-#  Tech Stack
-
-- Python
+## Tech Stack
+- Python 3.11
 - FastAPI
-- Pydantic
-- SQLAlchemy
 - SQLite
-- Uvicorn
+- SQLAlchemy
+- Pydantic
+- Docker
+- Pytest
+- Postman
 
 ---
 
-# Setup Instructions
+## Features
+- Input validation using Pydantic
+- Feature engineering pipeline
+- SQLite data persistence
+- REST API with FastAPI
+- Unit testing with pytest
+- Dockerized deployment
+- Logging support
 
-### 1. Clone repository
-```bash
-git clone <your-repo-url>
-cd optasia-ml-api
+---
+
+## How to Run
+
+
+### Install dependencies
+pip install -r requirements.txt
+
+---
+
+### Run locally
+uvicorn main:app --reload
+
+---
+
+### Run with Docker
+docker build -t optasia-api .
+docker run -p 8000:8000 optasia-api
+📡 API Endpoints
+Health Check
+
+GET /health
+
+Generate Features
+
+POST /features
+
+Request Body:
+
+[
+  {
+    "customer_ID": "1234567890",
+    "loan_date": "2024-01-01",
+    "amount": 500,
+    "fee": 20,
+    "loan_status": 0,
+    "term": "short",
+    "annual_income": 5000
+  }
+]
+Get Transactions
+
+GET /transactions/{customer_id}
+
+Get Features
+
+GET /features/{customer_id}
+
+Delete Transactions
+
+DELETE /transactions/{customer_id}
+
+Delete Features
+
+DELETE /features/{customer_id}
+
+Testing
+
+pytest
