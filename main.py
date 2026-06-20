@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Depends
 from typing import List
 from sqlalchemy.orm import Session
+from logging import logger 
 
 import logging
 
@@ -9,6 +10,9 @@ from feature_engineering import generate_features
 
 from database import engine, get_db
 from models import Base, Transaction, Feature
+
+
+logger.info("API started")
 
 # -----------------------
 # LOGGING SETUP
