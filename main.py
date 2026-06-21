@@ -1,11 +1,11 @@
 from fastapi import FastAPI, Depends
 from typing import List
 from sqlalchemy.orm import Session
-from logging import logger 
+from logger import logger
 
-import logging
 
-from schemas import Loan
+
+from schemas import RequestBody
 from feature_engineering import generate_features
 
 from database import engine, get_db
@@ -13,12 +13,6 @@ from models import Base, Transaction, Feature
 
 
 logger.info("API started")
-
-# -----------------------
-# LOGGING SETUP
-# -----------------------
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 # -----------------------
 # APP INIT
@@ -43,35 +37,41 @@ def health():
 # CREATE FEATURES
 # -----------------------
 @app.post("/features")
-def create_features(
-    loans: List[Loan],
-    db: Session = Depends(get_db)
-):
+def create_features(payload: RequestBody, db: Session = Depends(get_db)):
     logger.info("Received /features request")
 
-    # 1. Generate features
-    features = generate_features(loans)
+    # 1. Flatten loans
+    all_loans = []
+
+    for customer in payload.data:
+        all_loans.extend(customer.loans)
+
+    # 2. Generate features
+    features = generate_features(all_loans)
     logger.info("Features generated")
 
-    # 2. Save raw transactions
+    # 3. Save transactions
     logger.info("Saving transactions")
-    for loan in loans:
-        db.add(Transaction(
-            customer_id=loan.customer_ID,
-            loan_date=loan.loan_date,
-            amount=loan.amount,
-            fee=loan.fee,
-            loan_status=loan.loan_status,
-            term=loan.term,
-            annual_income=loan.annual_income
-        ))
+
+    for customer in payload.data:
+        for loan in customer.loans:
+            db.add(Transaction(
+                customer_id=customer.customer_ID,
+                loan_date=loan.loan_date,
+                amount=loan.amount,
+                fee=loan.fee,
+                loan_status=loan.loan_status,
+                term=loan.term,
+                annual_income=loan.annual_income
+            ))
 
     db.commit()
 
-    # 3. Save features
+    # 4. Save features (per first customer)
     logger.info("Saving features")
+
     db.add(Feature(
-        customer_id=loans[0].customer_ID,
+        customer_id=payload.data[0].customer_ID,
         total_loans=features["total_loans"],
         total_amount=features["total_amount"],
         total_fees=features["total_fees"],

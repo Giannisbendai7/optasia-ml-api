@@ -11,7 +11,7 @@ It processes customer loan records, validates input data, stores transactions in
 - Python 3.11
 - FastAPI
 - SQLite
-- SQLAlchemy
+- SQLAlchemy ORM
 - Pydantic
 - Docker
 - Pytest
@@ -57,17 +57,26 @@ POST /features
 
 Request Body:
 
-[
-  {
-    "customer_ID": "1234567890",
-    "loan_date": "2024-01-01",
-    "amount": 500,
-    "fee": 20,
-    "loan_status": 0,
-    "term": "short",
-    "annual_income": 5000
-  }
-]
+{
+  "data": [
+    {
+      "customer_ID": "1234567890",
+      "loans": [
+        {
+          "loan_date": "2024-01-01",
+          "amount": 500,
+          "fee": 20,
+          "loan_status": 0,
+          "term": "short",
+          "annual_income": 5000
+        }
+      ]
+    }
+  ]
+}
+
+
+
 Get Transactions
 
 GET /transactions/{customer_id}
