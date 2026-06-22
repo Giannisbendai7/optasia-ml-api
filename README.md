@@ -55,9 +55,10 @@ Generate Features
 
 POST /features
 
-## Request Body
 
-```json
+## Request Body Example
+
+
 {
   "data": [
     {
