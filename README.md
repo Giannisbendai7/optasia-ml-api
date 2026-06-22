@@ -96,3 +96,20 @@ DELETE /features/{customer_id}
 Testing
 
 pytest
+
+
+## Validation Summary 
+
+| Test Case | Field | Input Value | Expected | Result | Status |
+|-----------|-------|-------------|----------|--------|--------|
+| TC1 | amount | 500 | valid range (100–1000) | Accepted | PASS |
+| TC2 | amount | 5000 | must be ≤ 1000 | Rejected (422) | PASS |
+| TC3 | fee | 5 | must be ≥ 10 | Rejected (422) | PASS |
+| TC4 | term | "medium" | only short/long | Rejected (422) | PASS |
+| TC5 | loan_status | "0" | only 0 or 1 (int) | Rejected | PASS |
+| TC6 | customer_ID | "123" | min length 10 | Rejected | PASS |
+| TC7 | annual_income | 50000000 | max 10M | Rejected | PASS |
+
+
+
+All validations are implemented using Pydantic constraints and were verified using Postman with both positive and negative test cases.
