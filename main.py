@@ -11,6 +11,9 @@ from feature_engineering import generate_features
 from database import engine, get_db
 from models import Base, Transaction, Feature
 
+import time
+import psutil
+
 
 logger.info("API started")
 
@@ -18,6 +21,26 @@ logger.info("API started")
 # APP INIT
 # -----------------------
 app = FastAPI()
+
+@app.middleware("http")
+async def monitor_requests(request, call_next):
+
+    start_time = time.time()
+
+    response = await call_next(request)
+
+    latency = time.time() - start_time
+
+    cpu_usage = psutil.cpu_percent()
+
+    memory_usage = psutil.virtual_memory().percent
+
+    logger.info(
+        f"Latency={latency:.4f}s | CPU={cpu_usage}% | Memory={memory_usage}%"
+    )
+
+    return response
+
 
 # -----------------------
 # DB INIT (for assignment)
