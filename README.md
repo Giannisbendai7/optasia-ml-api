@@ -99,6 +99,20 @@ Testing
 
 pytest
 
+## Monitoring
+
+The API includes request-level monitoring through FastAPI middleware.
+
+Captured metrics:
+- Request latency
+- CPU usage
+- Memory usage
+
+Metrics are logged through the application logging layer for observability and debugging.
+
+
+
+
 
 ## Validation Summary 
 
