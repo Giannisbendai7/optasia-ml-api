@@ -46,12 +46,14 @@ uvicorn main:app --reload
 ### Run with Docker
 docker build -t optasia-api .
 docker run -p 8000:8000 optasia-api
-📡 API Endpoints
-Health Check
+
 
 
 -----
 
+API Endpoints
+
+Health Check
 
 GET /health
 
@@ -59,11 +61,7 @@ Generate Features
 
 POST /features
 
-----
-
-## Request Body Example
-
-
+Request Body Example
 {
   "data": [
     {
@@ -81,10 +79,6 @@ POST /features
     }
   ]
 }
-
-
-------
-
 
 Get Transactions
 
