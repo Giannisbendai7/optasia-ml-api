@@ -135,3 +135,21 @@ Metrics are logged through the application logging layer for observability and d
 
 
 All validations are implemented using Pydantic constraints and were verified using Postman with both positive and negative test cases.
+
+
+## Future Improvements / Production Enhancements
+
+While the current implementation fulfills all assignment requirements, the system can be further extended for production readiness:
+
+- **NGINX Reverse Proxy**
+  - Can be used to act as a gateway in front of the FastAPI service.
+  - Improves scalability, routing, and load balancing across multiple API instances.
+
+- **Monitoring & Observability (Grafana + Prometheus)**
+  - Can be integrated to visualize system metrics such as:
+    - CPU usage
+    - Memory consumption
+    - API latency
+  - Enables real-time monitoring and alerting for production environments.
+
+These improvements are not required for the assignment but represent typical production-level enhancements for scalability and observability.
