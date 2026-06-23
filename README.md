@@ -61,6 +61,8 @@ Generate Features
 
 POST /features
 
+-------
+
 Request Body Example
 {
   "data": [
@@ -79,6 +81,8 @@ Request Body Example
     }
   ]
 }
+
+------
 
 Get Transactions
 
