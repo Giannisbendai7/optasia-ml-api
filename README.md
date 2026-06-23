@@ -49,13 +49,17 @@ docker run -p 8000:8000 optasia-api
 📡 API Endpoints
 Health Check
 
+
+-----
+
+
 GET /health
 
 Generate Features
 
 POST /features
 
-
+----
 
 ## Request Body Example
 
@@ -77,6 +81,9 @@ POST /features
     }
   ]
 }
+
+
+------
 
 
 Get Transactions
@@ -109,8 +116,6 @@ Captured metrics:
 - Memory usage
 
 Metrics are logged through the application logging layer for observability and debugging.
-
-
 
 
 

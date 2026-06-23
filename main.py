@@ -4,7 +4,6 @@ from sqlalchemy.orm import Session
 from logger import logger
 
 
-
 from schemas import RequestBody
 from feature_engineering import generate_features
 
