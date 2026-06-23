@@ -136,6 +136,13 @@ Metrics are logged through the application logging layer for observability and d
 
 All validations are implemented using Pydantic constraints and were verified using Postman with both positive and negative test cases.
 
+The API was tested using multiple scenarios including:
+- multi-loan customers
+- edge cases (high/low income)
+- validation failure cases
+- boundary value testing
+
+
 
 ## Future Improvements / Production Enhancements
 
